@@ -15,15 +15,15 @@ def get_token():
 def get_events(endpoint, token):
     ret = {}
     headers = {"Authorization": "bearer " + token,"User-Agent":USER_AGENT} 
-    data = get(API + endpoint, headers=headers).json()
-    for event in data['data']['children']:
-        event = event['data']
-            
+    response = get(API + endpoint, headers=headers).json()
+    for post in response['data']['children']:
+        event = post['data']
+
         ret[event['title']] = {
-            "ups" : event['ups'],
-            "downs" : event['downs'],
-            "upvote_ratio" : event['upvote_ratio'],
-            "score" : None, #TODO: Potentially make request here
+            "ups" : event['ups'], # number of up votes
+            "downs" : event['downs'], # number of down votes
+            "upvote_ratio" : event['upvote_ratio'], # up vote ratio
+            "score" : None, #TODO: Potentially make request here for analyzing sentiment
             "created" : event['created_utc'] #unix time stamp
         }
 
@@ -31,3 +31,4 @@ def get_events(endpoint, token):
 
 if __name__ == "__main__":
     events = get_events("/r/news/?limit=100", get_token())
+    print(events)
