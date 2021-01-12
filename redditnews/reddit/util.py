@@ -1,13 +1,12 @@
 import json
 from requests import post, get, auth
+from .credentials import *
 
 AUTH = "https://www.reddit.com/api/v1/access_token"
 API = "https://oauth.reddit.com"
-USER_AGENT = "Reddit News JS by BambooSlayerz"
-CREDS = json.loads(open("creds.json").read())
 
 def get_token():
-    client_auth = auth.HTTPBasicAuth(CREDS['id'], CREDS['secret'])
+    client_auth = auth.HTTPBasicAuth(ID, SECRET)
     headers = {"User-Agent": USER_AGENT}
     data = {'grant_type':'client_credentials'}
     return post(AUTH, auth=client_auth, data=data, headers=headers).json()["access_token"]
