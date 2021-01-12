@@ -1,2 +1,7 @@
 redditnews/reddit/creds.json
 *.swp
+__pycache__/
+*.py[cod]
+*.log
+*.pot
+redditnews/reddit/credentials.py
